@@ -92,13 +92,16 @@ namespace MAGICVILLA_API.Controllers
         }
 
         [HttpPut("{id:int}",Name ="updateVilla")] //to update all ressource
-        public IActionResult updateVilla(int Id , [FromBody]Villadto villadto)
+        [ProducesResponseType(StatusCodes.Status204NoContent)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+  
+        public IActionResult updateVilla(int id , [FromBody]Villadto villadto)
         {
-            if (villadto== null || Id != villadto.Id)
+            if (villadto== null || id != villadto.Id)
             {
                 return BadRequest();
             }
-            var villa = villastrore.villalist.FirstOrDefault(u => u.Id == Id);
+            var villa = villastrore.villalist.FirstOrDefault(u => u.Id == id);
             villa.Name= villadto.Name;
             villa.Sqft = villadto.Sqft;
             villa.Occupancy = villadto.Occupancy;
